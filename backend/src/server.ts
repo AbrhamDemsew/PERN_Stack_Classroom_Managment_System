@@ -1,0 +1,17 @@
+import 'dotenv/config';
+import express from 'express';
+
+const app = express();
+const PORT = Number(process.env.PORT ?? 8000);
+
+app.use(express.json());
+
+app.get('/', (_req, res) => {
+	res.send('Classroom backend is running.');
+});
+
+
+
+app.listen(PORT, () => {
+	console.log(`Server running at http://localhost:${PORT}`);
+});
