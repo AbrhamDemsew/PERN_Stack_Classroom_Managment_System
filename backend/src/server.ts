@@ -13,7 +13,7 @@ if(!process.env.FRONTEND_URL){
 }
 
 app.use(cors({
-	origin: process.env.FRONTEND_URL,
+	origin: process.env.FRONTEND_URL || false,
 	methods: ['GET', 'POST', 'PUT', 'DELETE'],
 	credentials: true,
 }));
