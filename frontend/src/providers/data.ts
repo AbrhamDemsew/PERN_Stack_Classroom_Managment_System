@@ -38,6 +38,23 @@ import {createDataProvider, CreateDataProviderOptions} from "@refinedev/rest";
 import { BACKEND_BASE_URL } from "../components/constants";
 import { ListResponse } from "@/type";
 
+const buildHttpError = async ( response: Response) => {
+  let message = 'Request failed';
+
+  try{
+    const payload = (await response.json()) as { message?: string};
+
+    if(payload?.message) message = payload.message;
+  }catch{
+    message = 'An error occurred while processing the error response.';
+  }
+
+  return {
+    message,
+    status: response.status,
+  }
+} 
+
 const options: CreateDataProviderOptions = {
   getList: {
     getEndpoint: ({ resource}) => resource,
@@ -61,6 +78,8 @@ const options: CreateDataProviderOptions = {
     },
 
     mapResponse: async (response) => {
+      if(!response.ok) throw await buildHttpError(response);
+      
       const payload: ListResponse = await response.json();
       return payload.data ?? [];
     },
