@@ -16,15 +16,15 @@ const aj = arcjet({
         "CATEGORY:ARCHIVE",
       ],
     }),
-    tokenBucket({
-      mode: "LIVE",
-      refillRate: 5, 
-      interval: 10, 
-      capacity: 10, 
-    }),
+    // tokenBucket({
+    //   mode: "LIVE",
+    //   refillRate: 5, 
+    //   interval: 10, 
+    //   capacity: 10, 
+    // }),
     slidingWindow({
       mode: "LIVE",
-      interval: '2S', 
+      interval: '2s', 
       max: 5, 
     }),
   ],
