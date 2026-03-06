@@ -7,6 +7,13 @@ const securityMiddleware = async (req: Request, res: Response, next: NextFunctio
     if(process.env.NODE_ENV === "test") return next();
 
     try{
+        // Arcjet shields can deny requests when Origin is missing or literally "null" (some tools/extensions).
+        // Skip Arcjet for those cases to avoid false 403s on server-to-server or local tools.
+        const originHeader = req.headers.origin;
+        if (!originHeader || originHeader === 'null') {
+            return next();
+        }
+
         const role: RateLimitRole = req.user?.role || "guest";
 
         let limit: number;

@@ -1,3 +1,6 @@
+import AgentAPI from 'apminsight';
+AgentAPI.config();
+
 import 'dotenv/config';
 import express from 'express';
 import subjectRouter from './routes/subject';
@@ -14,6 +17,14 @@ if(!process.env.FRONTEND_URL){
 }
 
 app.use(express.json());
+
+// Ensure an Origin header exists for downstream middleware (Arcjet / Better Auth).
+app.use((req, _res, next) => {
+	if (!req.headers.origin || req.headers.origin === 'null') {
+		req.headers.origin = process.env.FRONTEND_URL || 'http://localhost:3000';
+	}
+	next();
+});
 
 app.use(securityMiddleware)
 
