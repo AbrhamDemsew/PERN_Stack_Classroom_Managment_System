@@ -3,6 +3,8 @@ import express from 'express';
 import subjectRouter from './routes/subject';
 import cors from 'cors';
 import securityMiddleware from './middleware/security';
+import { auth } from './lib/auth';
+import { toNodeHandler} from 'better-auth/node';
 
 const app = express();
 const PORT = Number(process.env.PORT ?? 8000);
@@ -20,6 +22,8 @@ app.use(cors({
 	methods: ['GET', 'POST', 'PUT', 'DELETE'],
 	credentials: true,
 }));
+
+app.all('/api/auth/*splat', toNodeHandler(auth));
 
 app.get('/', (_req, res) => {
 	res.send('Classroom backend is running.');

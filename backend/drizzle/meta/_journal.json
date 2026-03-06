@@ -8,6 +8,20 @@
       "when": 1770226822106,
       "tag": "0000_new_thor",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1772822987213,
+      "tag": "0001_aspiring_living_lightning",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1772823306416,
+      "tag": "0002_wandering_krista_starr",
+      "breakpoints": true
     }
   ]
 }
